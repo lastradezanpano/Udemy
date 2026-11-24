@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>情報更新記録 2026年11月</title>
+<style>
+:root{--bg:#ffffff;--fg:#1f2328;--muted:#59636e;--line:#d0d7de;--head:#f6f8fa;--ok:#1a7f37;--warn:#9a6700;--ng:#cf222e;}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d1117;--fg:#e6edf3;--muted:#9198a1;--line:#30363d;--head:#161b22;--ok:#3fb950;--warn:#d29922;--ng:#f85149;}}
+:root[data-theme="dark"]{--bg:#0d1117;--fg:#e6edf3;--muted:#9198a1;--line:#30363d;--head:#161b22;--ok:#3fb950;--warn:#d29922;--ng:#f85149;}
+body{background:var(--bg);color:var(--fg);font-family:"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;line-height:1.7;margin:0;padding:24px 16px;}
+main{max-width:960px;margin:0 auto;}
+h1{font-size:1.5rem;margin:0 0 4px;}
+h2{font-size:1.15rem;border-bottom:1px solid var(--line);padding-bottom:4px;margin-top:32px;}
+p.meta{color:var(--muted);margin:0 0 16px;font-size:.9rem;}
+.wrap{overflow-x:auto;}
+table{border-collapse:collapse;width:100%;font-size:.92rem;}
+th,td{border:1px solid var(--line);padding:6px 8px;vertical-align:top;text-align:left;}
+th{background:var(--head);white-space:nowrap;}
+.ok{color:var(--ok);font-weight:bold;white-space:nowrap;}
+.warn{color:var(--warn);font-weight:bold;white-space:nowrap;}
+.ng{color:var(--ng);font-weight:bold;white-space:nowrap;}
+a{color:inherit;}
+</style>
+</head>
+<body>
+<main>
+<h1>情報更新記録(2026年11月)</h1>
+<p class="meta">最終更新: 2026-11-24 / 対象: Udemy向け物流研修資料の検討(Claudeとの会話)<br>
+状態の見方: <span class="ok">更新</span>=以前の情報を訂正・更新した / <span class="warn">判断待ち</span>=更新が必要か分からないため、ご本人の判断を待つ / <span class="ng">要確認</span>=事実の確認がまだ</p>
+
+<h2>1. 以前に提示した情報の訂正・更新</h2>
+<div class="wrap"><table>
+<tr><th>日付</th><th>以前の情報</th><th>更新後</th><th>状態</th><th>根拠</th></tr>
+<tr><td>2026-11-23</td><td>テーマ候補B「物流コストの見方」を新テーマとして提案</td><td>Googleドライブに「12_物流費の見方入門」が既にある。新テーマ候補としては不適切</td><td class="ok">更新</td><td>Googleドライブの研修フォルダ</td></tr>
+<tr><td>2026-11-23</td><td>テーマ候補C「荷主向け・CLOを支える人向け」を提案</td><td>テーマ6「物流効率化法対応」と「14_改正物流効率化法入門」があり、重複が大きい可能性</td><td class="ok">更新</td><td>同上</td></tr>
+<tr><td>2026-11-23</td><td>案A「荷待ち・荷役」は積載率の教材と内容の重複は小さい(枠組みが重なる程度)</td><td>ドライブの既存資料(テーマ3第5回、テーマ4、テーマ6第9話・第12話)と内容が大きく重複。新しく扱えるのは「原因の見極めと改善案づくりの演習」部分</td><td class="ok">更新</td><td>各テーマのスライド本文</td></tr>
+<tr><td>2026-11-23</td><td>「積載率で作ったAIコーチ」と表現</td><td>指示文を作ったのはこの会話ではなく以前の作業(2026-11-17、リポジトリの記録)</td><td class="ok">更新</td><td>リポジトリのコミット履歴</td></tr>
+</table></div>
+
+<h2>2. 更新が必要か判断をお願いしたい情報</h2>
+<div class="wrap"><table>
+<tr><th>対象</th><th>内容</th><th>状態</th><th>根拠</th></tr>
+<tr><td>テーマ4 輸配送マネジメント実務 1-6</td><td>冷凍を「おおむねマイナス15℃以下」と説明。食品衛生法の保存基準(−15℃以下)とは合うが、業界で一般的な「−18℃以下」には触れていない。温湿度管理の教材を作る場合、整合をどうするか</td><td class="warn">判断待ち</td><td>テーマ4 音声なし版(2026-10-02)、<a href="https://www.mhlw.go.jp/file/06-Seisakujouhou-11130500-Shokuhinanzenbu/0000126767.pdf">厚生労働省 規格基準</a></td></tr>
+<tr><td>テーマ4 輸配送マネジメント実務 1-6</td><td>冷蔵を「おおむね5〜10℃前後」と説明。法令上の定義ではなく目安。表現として問題ないか</td><td class="warn">判断待ち</td><td>同上</td></tr>
+<tr><td>共通ファクトマスター</td><td>冷蔵倉庫の温度帯区分の改正(2024年4月1日施行、10区分)、冷凍食品の保存基準(−15℃以下)、GDPガイドラインなどを追記するか</td><td class="warn">判断待ち</td><td><a href="https://www.mlit.go.jp/report/press/tokatsu01_hh_000740.html">国土交通省 報道発表(2024-01-31)</a></td></tr>
+<tr><td>テーマ11・13・14</td><td>音声入りファイル(約66MB)が大きく、荷待ち・荷役との重複を確認できていない</td><td class="ng">要確認</td><td>—</td></tr>
+</table></div>
+
+<h2>3. 温湿度管理テーマの調査で見つかった食い違い・未確認事項</h2>
+<div class="wrap"><table>
+<tr><th>内容</th><th>食い違い・不明点</th><th>状態</th><th>根拠</th></tr>
+<tr><td>冷蔵倉庫の改正後、既存登録の扱い</td><td>国交省資料は「従前の取り扱い」。検索結果の要約には「新しい級に読み替え、手続き不要」とする運輸局資料があった</td><td class="ng">要確認</td><td><a href="https://www.mlit.go.jp/report/press/tokatsu01_hh_000740.html">国土交通省</a>、<a href="https://wwwtb.mlit.go.jp/shikoku/bunya/koutsuu/2024-3-00001_02462-3.html">四国運輸局</a></td></tr>
+<tr><td>冷凍食品の品温 −18℃以下</td><td>日本冷凍食品協会の自主基準。協会のサイトに接続できず原文未読</td><td class="ng">要確認</td><td>検索結果の要約のみ</td></tr>
+<tr><td>HCFC(R22など)の生産全廃の時期</td><td>「2019年末に生産全廃」(環境省資料の要約)と「2020年に実質全廃」(民間資料)で表現が異なる</td><td class="ng">要確認</td><td><a href="https://www.env.go.jp/earth/ozone/cn_naturalrefrigerant/grant/">環境省</a></td></tr>
+<tr><td>冷凍冷蔵倉庫の老朽化</td><td>「築30年超が約6割(2023年12月時点)」と「庫齢30年以上が約4割(2008年時点)」など、時点で数字が異なる</td><td class="ng">要確認</td><td>検索結果の要約のみ</td></tr>
+<tr><td>日本薬局方の温度の定義</td><td>第十八改正(英語版)で確認。現行の第十九改正(2026年4月告示)は未確認</td><td class="ng">要確認</td><td><a href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000066530.html">厚生労働省 日本薬局方</a></td></tr>
+<tr><td>HACCPの施行日</td><td>施行は2020年6月1日、1年の猶予を経て2021年6月1日から完全施行。資料によって「施行日」の表記が異なるが、内容は矛盾しない</td><td class="ok">更新</td><td><a href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kenkou_iryou/shokuhin/haccp/index.html">厚生労働省 HACCP</a></td></tr>
+</table></div>
+
+<p class="meta">このファイルは、会話の中で情報が更新されるたびに書き足します。リポジトリ内の場所: コンテキスト/情報更新記録_2026-11.html</p>
+</main>
+</body>
+</html>
