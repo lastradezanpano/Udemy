@@ -124,12 +124,14 @@ class Deck:
         """白背景の内容スライドの見出し（全スライド同位置）"""
         if kicker:
             self.text(s, 0.6, 0.35, 9, 0.4, kicker, size=14, color=ACC, bold=True)
-        self.text(s, 0.6, 0.7, 12.1, 0.8, title, size=30, color=DARK, bold=True)
+        self.text(s, 0.6, 0.7, 12.1, 0.8, title, size=30, color=DARK, bold=True,
+                  spacing=1.15)
         self.text(s, 12.1, 7.0, 0.8, 0.35, str(self.n), size=11, color=MUTED,
                   align=PP_ALIGN.RIGHT)
 
     def source(self, s, text):
-        self.text(s, 0.6, 6.92, 11.3, 0.45, text, size=11, color=MUTED)
+        self.text(s, 0.6, 6.88, 11.3, 0.5, text, max_size=12, min_size=10,
+                  color=RGBColor(0x48, 0x55, 0x5C))
 
     # ---------- スライド型 ----------
     def title_slide(self, title, sub, notes):
@@ -147,12 +149,17 @@ class Deck:
         s.background.fill.solid()
         s.background.fill.fore_color.rgb = DARK
         self.circle_num(s, 0.8, 2.0, 1.3, no, fill=ACC, size=32)
-        self.text(s, 2.4, 1.85, 10.3, 1.9, title, size=34, color=WHITE, bold=True,
-                  spacing=1.3)
+        self.text(s, 2.4, 1.7, 10.3, 1.9, title, size=34, color=WHITE, bold=True,
+                  spacing=1.3, anchor=MSO_ANCHOR.MIDDLE)
         self.text(s, 2.4, 4.0, 10.3, 1.4, lead, size=20, color=RGBColor(0xCF, 0xE3, 0xE7))
         self.text(s, 12.1, 7.0, 0.8, 0.35, str(self.n), size=11,
                   color=RGBColor(0xCF, 0xE3, 0xE7), align=PP_ALIGN.RIGHT)
         return s
+
+    def _uniform(self, texts, w, h, mx, mn, spacing=1.25):
+        """同じスライド内の同種要素は同じ文字サイズにそろえる"""
+        return min(fit_font_size(t, w * 72, h * 72, mx, mn, line_spacing=spacing)
+                   for t in texts)
 
     def cards(self, s, items, top=1.75, bottom=6.75, cols=None, numbered=True,
               fill=TINT, head_color=DARK, body_max=24):
@@ -163,36 +170,38 @@ class Deck:
         gap = 0.3
         cw = (W - 1.2 - gap * (cols - 1)) / cols
         ch = (bottom - top - gap * (rows - 1)) / rows
+        hx_off = 0.95 if numbered else 0.25
+        hw = cw - hx_off - 0.15
+        hs = self._uniform([hd for hd, _ in items], hw, 0.6, 22, 16, 1.15)
+        bs = self._uniform([b for _, b in items], cw - 0.45, ch - 1.05, body_max, 15)
         for i, (head, body) in enumerate(items):
             r, c = divmod(i, cols)
             x = 0.6 + c * (cw + gap)
             y = top + r * (ch + gap)
             self.box(s, x, y, cw, ch, fill)
-            hx = x + 0.25
             if numbered:
                 self.circle_num(s, x + 0.25, y + 0.25, 0.55, str(i + 1), size=18)
-                hx = x + 0.95
-            self.text(s, hx, y + 0.22, x + cw - hx - 0.15, 0.65, head, color=head_color,
-                      bold=True, max_size=21, min_size=16, anchor=MSO_ANCHOR.MIDDLE)
-            self.text(s, x + 0.25, y + 0.95, cw - 0.45, ch - 1.05, body,
-                      max_size=body_max, min_size=15)
+            self.text(s, x + hx_off, y + 0.22, hw, 0.62, head, size=hs, color=head_color,
+                      bold=True, anchor=MSO_ANCHOR.MIDDLE, spacing=1.15)
+            self.text(s, x + 0.25, y + 0.95, cw - 0.45, ch - 1.05, body, size=bs)
         return s
 
     def compare(self, s, left_head, left_items, right_head, right_items,
                 top=1.75, bottom=6.75, lfill=NG_T, lcol=NG, rfill=OK_T, rcol=OK,
                 lmark="×", rmark="○"):
         cw = (W - 1.2 - 0.4) / 2
-        for k, (head, items, fill, col, mark) in enumerate(
-                [(left_head, left_items, lfill, lcol, lmark),
-                 (right_head, right_items, rfill, rcol, rmark)]):
+        bodies = ["\n".join("・" + t for t in it) for it in (left_items, right_items)]
+        bs = self._uniform(bodies, cw - 0.55, bottom - top - 1.15, 22, 15, 1.4)
+        for k, (head, body, fill, col, mark) in enumerate(
+                [(left_head, bodies[0], lfill, lcol, lmark),
+                 (right_head, bodies[1], rfill, rcol, rmark)]):
             x = 0.6 + k * (cw + 0.4)
             self.box(s, x, top, cw, bottom - top, fill)
             self.circle_num(s, x + 0.25, top + 0.22, 0.6, mark, fill=col, size=22)
             self.text(s, x + 1.0, top + 0.22, cw - 1.2, 0.6, head, size=21, color=col,
                       bold=True, anchor=MSO_ANCHOR.MIDDLE)
-            body = "\n".join("・" + t for t in items)
             self.text(s, x + 0.3, top + 1.0, cw - 0.55, bottom - top - 1.15, body,
-                      max_size=22, min_size=15, spacing=1.4)
+                      size=bs, spacing=1.4)
         return s
 
     def steps(self, s, items, top=1.9, h=3.4, note=None):
@@ -200,15 +209,16 @@ class Deck:
         n = len(items)
         gap = 0.45
         cw = (W - 1.2 - gap * (n - 1)) / n
+        hs = self._uniform([hd for hd, _ in items], cw - 0.3, 0.62, 21, 16, 1.15)
+        bs = self._uniform([b for _, b in items], cw - 0.4, h - 1.95, 21, 15)
         for i, (head, body) in enumerate(items):
             x = 0.6 + i * (cw + gap)
             self.box(s, x, top, cw, h, TINT)
             self.circle_num(s, x + cw / 2 - 0.35, top + 0.25, 0.7, str(i + 1),
                             fill=ACC if i == n - 1 else TEAL, size=22)
-            self.text(s, x + 0.15, top + 1.1, cw - 0.3, 0.7, head, color=DARK, bold=True,
-                      align=PP_ALIGN.CENTER, max_size=21, min_size=16)
-            self.text(s, x + 0.2, top + 1.85, cw - 0.4, h - 1.95, body, max_size=20,
-                      min_size=15)
+            self.text(s, x + 0.15, top + 1.1, cw - 0.3, 0.65, head, size=hs, color=DARK,
+                      bold=True, align=PP_ALIGN.CENTER, spacing=1.15)
+            self.text(s, x + 0.2, top + 1.85, cw - 0.4, h - 1.95, body, size=bs)
             if i < n - 1:
                 a = s.shapes.add_shape(MSO_SHAPE.RIGHT_ARROW, Inches(x + cw + 0.07),
                                        Inches(top + h / 2 - 0.2), Inches(0.31),
@@ -219,7 +229,7 @@ class Deck:
         if note:
             self.box(s, 0.6, top + h + 0.3, W - 1.2, 6.75 - top - h - 0.3, ACC_T)
             self.text(s, 0.85, top + h + 0.38, W - 1.7, 6.75 - top - h - 0.46, note,
-                      max_size=20, min_size=14, anchor=MSO_ANCHOR.MIDDLE)
+                      max_size=20, min_size=15, anchor=MSO_ANCHOR.MIDDLE)
         return s
 
     def stats(self, s, items, top=1.8, h=2.6):
